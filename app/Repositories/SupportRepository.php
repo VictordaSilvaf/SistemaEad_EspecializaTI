@@ -17,8 +17,7 @@ class SupportRepository
 
     public function getSupports(array $filters = [])
     {
-        return $this->getUserAuth()
-            ->supports()
+        return $this->entity
             ->where(function ($query) use ($filters) {
                 if (isset($filters['lesson'])) {
                     $query->where('lesson_id', $filters['lesson']);
@@ -30,9 +29,17 @@ class SupportRepository
 
                 if (isset($filters['filter'])) {
                     $filter = $filters['filter'];
-                    $query->where('description', "LIKE", "%{$filter}%");
+                    $query->where('description', 'LIKE', "%{$filter}%");
+                }
+
+                if (isset($filters['user'])) {
+                    $user = $this->getUserAuth();
+
+                    $query->where('user_id', $user->id);
                 }
             })
+            ->with('replies')
+            ->orderBy('updated_at')
             ->get();
     }
 
@@ -47,6 +54,35 @@ class SupportRepository
             ]);
 
         return $support;
+    }
+
+    public function ReplyResource(string $supportId, array $data)
+    {
+        $user = $this->getUserAuth();
+
+        $this->getSupport($supportId)
+            ->replies()
+            ->create([
+                'description' => $data['desription'],
+                'user_id' => $user->id,
+            ]);
+    }
+
+    private function getSupport(string $id)
+    {
+        return $this->entity->findOrFail($id);
+    }
+
+    public function createReplyToSupportId(string $supportId, array $data)
+    {
+        $user = $this->getUserAuth();
+
+        return $this->getSupport($supportId)
+            ->replies()
+            ->create([
+                'description' => $data['description'],
+                'user_id' => $user->id,
+            ]);
     }
 
     // Pegando o usuario autentiado.

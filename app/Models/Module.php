@@ -11,7 +11,9 @@ class Module extends Model
     use HasFactory, UuidTrait;
 
     public $incrementing = false;
+
     protected $keyTypes = 'uuid';
+
     protected $fillable = ['nome'];
 
     public function course()

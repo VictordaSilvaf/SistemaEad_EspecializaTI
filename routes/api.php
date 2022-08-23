@@ -21,6 +21,8 @@ Route::get('/lessons/{id}', [LessonController::class, 'shiow']);
 Route::get('/supports', [SupportController::class, 'index']);
 Route::post('/supports', [SupportController::class, 'store']);
 
+Route::post('/supports/{id}/reply', [SupportController::class, 'createReplies']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
