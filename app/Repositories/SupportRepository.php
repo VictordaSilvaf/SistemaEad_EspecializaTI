@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Support;
 use App\Models\User;
+use Illuminate\Support\Arr;
 
 class SupportRepository
 {
@@ -33,6 +34,19 @@ class SupportRepository
                 }
             })
             ->get();
+    }
+
+    public function createNewSupport(array $data): Support
+    {
+        $support = $this->getUserAuth()
+            ->supports()
+            ->create([
+                'status' => $data['status'],
+                'lesson_id' => $data['lesson'],
+                'description' => $data['description'],
+            ]);
+
+        return $support;
     }
 
     // Pegando o usuario autentiado.
