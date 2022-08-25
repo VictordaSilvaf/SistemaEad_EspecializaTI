@@ -16,6 +16,13 @@ class SupportRepository
         $this->entity = $model;
     }
 
+    public function getMySuppots(array $filters = [])
+    {
+        $filters['users'] = true;
+
+        return $this->getSupports($filters);
+    }
+
     public function getSupports(array $filters = [])
     {
         return $this->entity
@@ -38,8 +45,13 @@ class SupportRepository
 
                     $query->where('user_id', $user->id);
                 }
+
+                if (isset($filters['user'])) {
+                    $user = $this->getUserAuth();
+
+                    $query->where('user_id', $user->id);
+                }
             })
-            ->with('replies')
             ->orderBy('updated_at')
             ->get();
     }
