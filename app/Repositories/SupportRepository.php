@@ -3,11 +3,12 @@
 namespace App\Repositories;
 
 use App\Models\Support;
-use App\Models\User;
-use Illuminate\Support\Arr;
+use App\Repositories\Traits\RepositoryTrait;
 
 class SupportRepository
 {
+    use RepositoryTrait;
+
     protected $entity;
 
     public function __construct(Support $model)
@@ -83,12 +84,5 @@ class SupportRepository
                 'description' => $data['description'],
                 'user_id' => $user->id,
             ]);
-    }
-
-    // Pegando o usuario autentiado.
-    private function getUserAuth(): User
-    {
-        // return auth()->user();
-        return User::first();
     }
 }
