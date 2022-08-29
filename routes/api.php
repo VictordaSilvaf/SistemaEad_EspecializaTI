@@ -24,6 +24,7 @@ Route::post('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
  * Reset password
  */
 Route::post('/forgot-password', [ResetPasswordController::class, 'sendResetLink'])->middleware('guest');
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->middleware('guest');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/courses', [CourseController::class, 'index']);
