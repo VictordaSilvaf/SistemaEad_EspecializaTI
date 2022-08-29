@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -33,5 +34,12 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
 
         return response()->json(['success' => true]);
+    }
+
+    public function me()
+    {
+        $user = auth()->user();
+
+        return new UserResource($user);
     }
 }
