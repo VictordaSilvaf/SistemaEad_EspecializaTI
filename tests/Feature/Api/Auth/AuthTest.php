@@ -62,6 +62,7 @@ class AuthTest extends TestCase
             'Authorization' => "Bearer {$token}"
         ]);
 
+
         $response->assertStatus(200);
     }
 }
