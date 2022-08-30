@@ -11,13 +11,10 @@ class Lesson extends Model
     use HasFactory, UuidTrait;
 
     public $incrementing = false;
-    protected $keyTypes = 'uuid';
-    protected $fillable = ['nome', 'description', 'video'];
 
-    public function course()
-    {
-        return $this->belongsTo(Course::class);
-    }
+    protected $keyType = 'uuid';
+
+    protected $fillable = ['name', 'description', 'video'];
 
     public function supports()
     {
