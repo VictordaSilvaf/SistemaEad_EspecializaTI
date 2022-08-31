@@ -21,14 +21,16 @@ class StoreSupport extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, mixed>
+     * @return array
      */
     public function rules(Support $support)
     {
         return [
             'lesson' => ['required', 'exists:lessons,id'],
-            'status' => ['required', Rule::in(array_keys($support->statusOptions))],
-            'lesson' => ['required', 'exists:lessons,id'],
+            'status' => [
+                'required',
+                Rule::in(array_keys($support->statusOptions))
+            ],
             'description' => ['required', 'min:3', 'max:10000'],
         ];
     }

@@ -6,12 +6,15 @@ use App\Models\User;
 
 trait UtilsTrait
 {
+    public function createUser()
+    {
+        return User::factory()->create();
+    }
+
     public function createTokenUser()
     {
-        $user = User::factory()->create();
-        $token = $user->createToken('teste')->plainTextToken;
-
-        return $token;
+        $user = $this->createUser();
+        return $user->createToken('teste')->plainTextToken;
     }
 
     public function defaultHeaders()

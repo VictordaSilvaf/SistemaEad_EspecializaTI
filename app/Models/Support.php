@@ -12,7 +12,7 @@ class Support extends Model
 
     public $incrementing = false;
 
-    protected $keyTypes = 'uuid';
+    protected $keyType = 'uuid';
 
     protected $fillable = ['status', 'description', 'lesson_id'];
 
