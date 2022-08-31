@@ -5,8 +5,6 @@ namespace Tests\Feature\Api;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Module;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class LessonTest extends TestCase

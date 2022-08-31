@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\Api;
 
+use App\Models\Lesson;
 use App\Models\Support;
 use Tests\TestCase;
+use Illuminate\Support\Str;
 
 class SupportTest extends TestCase
 {
@@ -54,7 +56,7 @@ class SupportTest extends TestCase
 
     public function test_get_supports_filter_lesson()
     {
-        $lesson = Support::factory()->create();
+        $lesson = Lesson::factory()->create();
 
         Support::factory()->count(50)->create();
         Support::factory()->count(10)->create([
@@ -67,5 +69,34 @@ class SupportTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonCount(10, 'data');
+    }
+
+    public function test_create_my_support_unauthenticated()
+    {
+        $response = $this->postJson('/supports');
+
+        $response->assertStatus(401);
+    }
+
+    public function test_create_my_support_error_validations()
+    {
+        $response = $this->postJson('/supports', [], $this->defaultHeaders());
+
+        $response->assertStatus(422);
+    }
+
+    public function test_create_my_support()
+    {
+        $lesson = Lesson::factory()->create();
+
+        $payload = [
+            'lesson' => $lesson->id,
+            'status' => 'P',
+            'description' => Str::random(40),
+        ];
+
+        $response = $this->postJson('/supports', $payload, $this->defaultHeaders());
+
+        $response->assertStatus(201);
     }
 }
