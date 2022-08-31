@@ -12,9 +12,9 @@ class ReplySupport extends Model
 
     public $incrementing = false;
 
-    protected $keyTypes = 'uuid';
+    protected $keyType = 'uuid';
 
-    protected $fillable = ['desription', 'user_id'];
+    protected $fillable = ['description', 'support_id', 'user_id'];
 
     protected $table = 'reply_support';
 

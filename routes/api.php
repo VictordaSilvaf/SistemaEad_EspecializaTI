@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\{
     CourseController,
     LessonController,
     ModuleController,
+    ReplySupportController,
     SupportController,
 };
 use App\Http\Controllers\Api\Auth\{
@@ -41,7 +42,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/supports', [SupportController::class, 'index']);
     Route::post('/supports', [SupportController::class, 'store']);
 
-    Route::post('/replies', [ReplySupportController::class, 'createReplies']);
+    Route::post('/replies', [ReplySupportController::class, 'createReply']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

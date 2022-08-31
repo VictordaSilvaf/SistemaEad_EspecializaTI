@@ -16,7 +16,7 @@ class ReplySupportController extends Controller
         $this->repository = $replySupportRepository;
     }
 
-    public function createReplies(StoreReplySupport $request)
+    public function createReply(StoreReplySupport $request)
     {
         $reply = $this->repository->createReplyToSupport($request->validated());
 
