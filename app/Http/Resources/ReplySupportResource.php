@@ -14,11 +14,12 @@ class ReplySupportResource extends JsonResource
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
-    {
-        return [
-            'description' => $this->description,
-            'support' => new SupportResource($this->whenLoaded('support')),
-            'user' => new UserResource($this->user),
-        ];
+    { {
+            return [
+                'description' => $this->description,
+                'support' => new SupportResource($this->whenLoaded('support')),
+                'user' => new UserResource($this->user),
+            ];
+        }
     }
 }
